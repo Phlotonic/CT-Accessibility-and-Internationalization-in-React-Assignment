@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 const CommentForm = ({ onSubmit }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
 
@@ -18,7 +20,7 @@ const CommentForm = ({ onSubmit }) => {
       flexDirection: 'column',
       gap: '1rem',
       padding: '1rem',
-      backgroundColor: 'black',
+      backgroundColor: '#f5f5f5',
       borderRadius: '4px'
     },
     input: {
@@ -44,28 +46,28 @@ const CommentForm = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} style={styles.form} aria-label="Comment Form">
       <label>
-        <span>Name</span>
+        <span>{t('name')}</span>
         <input
           style={styles.input}
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Your name"
+          placeholder={t('name')}
           required
         />
       </label>
       <label>
-        <span>Comment</span>
+        <span>{t('comment')}</span>
         <textarea
           style={styles.textarea}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Your comment"
+          placeholder={t('comment')}
           required
         />
       </label>
       <button type="submit" style={styles.button}>
-        Submit Comment
+        {t('submitComment')}
       </button>
     </form>
   );
