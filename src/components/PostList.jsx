@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPosts } from '../api';
 import { useUpdatePost, useDeletePost } from '../hooks/usePostMutations';
 import EditPostForm from './EditPostForm';
+import PostItem from './PostItem';
 
 const PostList = () => {
   const { data: posts = [], isLoading } = useQuery({
@@ -44,6 +45,10 @@ const PostList = () => {
     }
   };
 
+  const filteredPosts = useMemo(() => {
+    return posts;
+  }, [posts]);
+
   const styles = {
     container: {
       maxWidth: '800px',
@@ -56,28 +61,6 @@ const PostList = () => {
       display: 'flex',
       flexDirection: 'column',
       gap: '1rem'
-    },
-    postItem: {
-      padding: '1rem',
-      backgroundColor: 'black',
-      borderRadius: '4px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    },
-    button: {
-      padding: '0.5rem 1rem',
-      marginRight: '0.5rem',
-      fontSize: '0.875rem',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer'
-    },
-    editButton: {
-      backgroundColor: '#2196F3',
-      color: 'white'
-    },
-    deleteButton: {
-      backgroundColor: '#f44336',
-      color: 'white'
     }
   };
 
@@ -87,8 +70,8 @@ const PostList = () => {
     <div style={styles.container}>
       <h1>Posts</h1>
       <ul style={styles.postList}>
-        {posts.map((post) => (
-          <li key={post.id} style={styles.postItem}>
+        {filteredPosts.map((post) => (
+          <li key={post.id}>
             {editingPost === post.id ? (
               <EditPostForm
                 post={post}
@@ -100,22 +83,11 @@ const PostList = () => {
                 handleCancel={handleCancel}
               />
             ) : (
-              <div>
-                <h3>{post.title}</h3>
-                <p>{post.body}</p>
-                <button 
-                  style={{...styles.button, ...styles.editButton}}
-                  onClick={() => handleEdit(post)}
-                >
-                  Edit
-                </button>
-                <button 
-                  style={{...styles.button, ...styles.deleteButton}}
-                  onClick={() => handleDelete(post.id)}
-                >
-                  Delete
-                </button>
-              </div>
+              <PostItem
+                post={post}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
             )}
           </li>
         ))}
