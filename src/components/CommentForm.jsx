@@ -20,7 +20,7 @@ const CommentForm = ({ onSubmit }) => {
       flexDirection: 'column',
       gap: '1rem',
       padding: '1rem',
-      backgroundColor: '#f5f5f5',
+      backgroundColor: '#232023',
       borderRadius: '4px'
     },
     input: {
