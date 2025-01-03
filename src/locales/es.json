@@ -1,0 +1,16 @@
+{
+    "home": "Inicio",
+    "posts": "Publicaciones",
+    "createPost": "Crear Publicación",
+    "welcome": "Bienvenido al Administrador de Publicaciones del Blog",
+    "postTitle": "Título de la publicación",
+    "postContent": "Contenido de la publicación",
+    "create": "Crear Publicación",
+    "creating": "Creando...",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "submitComment": "Enviar Comentario",
+    "name": "Nombre",
+    "comment": "Comentario"
+  }
+  

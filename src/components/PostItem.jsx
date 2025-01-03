@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import CommentForm from './CommentForm';
+import { useTranslation } from 'react-i18next';
 
 const PostItem = React.memo(({ post, handleEdit, handleDelete }) => {
+  const { t } = useTranslation();
+  const [comments, setComments] = useState([]);
+
+  const handleCommentSubmit = (comment) => {
+    setComments([...comments, comment]);
+  };
+
   const styles = {
     postItem: {
       padding: '1rem',
@@ -24,26 +33,46 @@ const PostItem = React.memo(({ post, handleEdit, handleDelete }) => {
     deleteButton: {
       backgroundColor: '#f44336',
       color: 'white'
+    },
+    commentList: {
+      listStyle: 'none',
+      padding: 0,
+      marginTop: '1rem'
+    },
+    commentItem: {
+      padding: '0.5rem',
+      backgroundColor: 'gray',
+      borderRadius: '4px',
+      marginBottom: '0.5rem'
     }
   };
 
   return (
-    <div style={styles.postItem}>
-      <h3>{post.title}</h3>
+    <article style={styles.postItem} aria-labelledby={`post-title-${post.id}`}>
+      <h3 id={`post-title-${post.id}`}>{post.title}</h3>
       <p>{post.body}</p>
       <button 
         style={{...styles.button, ...styles.editButton}}
         onClick={() => handleEdit(post)}
       >
-        Edit
+        {t('edit')}
       </button>
       <button 
         style={{...styles.button, ...styles.deleteButton}}
         onClick={() => handleDelete(post.id)}
       >
-        Delete
+        {t('delete')}
       </button>
-    </div>
+      <CommentForm onSubmit={handleCommentSubmit} />
+      <ul style={styles.commentList} aria-label="List of Comments">
+        {comments.map((comment, index) => (
+          <li key={index} style={styles.commentItem}>
+            <strong>{comment.name}</strong>
+            <p>{comment.comment}</p>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 });
 

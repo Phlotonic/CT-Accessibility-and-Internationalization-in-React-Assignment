@@ -4,8 +4,10 @@ import { fetchPosts } from '../api';
 import { useUpdatePost, useDeletePost } from '../hooks/usePostMutations';
 import EditPostForm from './EditPostForm';
 import PostItem from './PostItem';
+import { useTranslation } from 'react-i18next';
 
 const PostList = () => {
+  const { t } = useTranslation();
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPosts
@@ -67,9 +69,9 @@ const PostList = () => {
   if (isLoading) return <div>Loading posts...</div>;
 
   return (
-    <div style={styles.container}>
-      <h1>Posts</h1>
-      <ul style={styles.postList}>
+    <main style={styles.container}>
+      <h1>{t('posts')}</h1>
+      <ul style={styles.postList} aria-label="List of Posts">
         {filteredPosts.map((post) => (
           <li key={post.id}>
             {editingPost === post.id ? (
@@ -92,7 +94,7 @@ const PostList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   );
 };
 

@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useCreatePost } from '../hooks/usePostMutations';
+import { useTranslation } from 'react-i18next';
 
 const CreatePost = () => {
+  const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const createPostMutation = useCreatePost();
@@ -43,33 +45,39 @@ const CreatePost = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Create New Post</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <input
-          style={styles.input}
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Post title"
-          required
-        />
-        <textarea
-          style={styles.textarea}
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          placeholder="Post content"
-          required
-        />
+    <main style={styles.container}>
+      <h2>{t('createPost')}</h2>
+      <form onSubmit={handleSubmit} style={styles.form} aria-label="Create Post Form">
+        <label>
+          <span>{t('postTitle')}</span>
+          <input
+            style={styles.input}
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={t('postTitle')}
+            required
+          />
+        </label>
+        <label>
+          <span>{t('postContent')}</span>
+          <textarea
+            style={styles.textarea}
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder={t('postContent')}
+            required
+          />
+        </label>
         <button 
           type="submit" 
           style={styles.button}
           disabled={createPostMutation.isPending}
         >
-          {createPostMutation.isPending ? 'Creating...' : 'Create Post'}
+          {createPostMutation.isPending ? t('creating') : t('create')}
         </button>
       </form>
-    </div>
+    </main>
   );
 };
 

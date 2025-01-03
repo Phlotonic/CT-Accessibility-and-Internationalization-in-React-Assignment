@@ -1,0 +1,16 @@
+{
+    "home": "Accueil",
+    "posts": "Publications",
+    "createPost": "Créer une Publication",
+    "welcome": "Bienvenue sur le Gestionnaire de Publications de Blog",
+    "postTitle": "Titre de la publication",
+    "postContent": "Contenu de la publication",
+    "create": "Créer une Publication",
+    "creating": "Création...",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "submitComment": "Soumettre un Commentaire",
+    "name": "Nom",
+    "comment": "Commentaire"
+  }
+  
